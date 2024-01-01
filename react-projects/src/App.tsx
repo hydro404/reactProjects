@@ -1,33 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+import { useState } from 'react';
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+function generateRandomHexColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
 
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+
+  return color;
+}
+
+function App() {
+  const [bodyColor, setBodyColor] = useState('');
+
+  const changeBackgroundColor = () => {
+    const newColor = generateRandomHexColor();
+    setBodyColor(newColor);
+  };
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1 className="black" >Color Flip</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={changeBackgroundColor}> Flip
+        <style>{`
+          body {
+            background-color: ${bodyColor} !important;
+          }
+        `}
+        </style>
         </button>
-        <p>
+        {/* <p>
           Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        </p> */}
       </div>
-      <p className="read-the-docs">
+      {/* <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
     </>
   )
 }
